@@ -1,0 +1,3 @@
+readme: https://github.com/docker-library/docs/blob/master/python/README.md
+get localhost ip: netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
+(requires 'netifaces' package)
