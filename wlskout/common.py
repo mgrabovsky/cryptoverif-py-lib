@@ -6,5 +6,10 @@ SERVER = '\x1b[35mserver\x1b[0m'
 PORT = 2666
 
 def get_local_address():
-    return netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
+    ifaces = netifaces.interfaces()
+    if 'enp0s25' in ifaces:
+        iface = netifaces.ifaddresses('enp0s25')
+    else:
+        iface = netifaces.ifaddresses('eth0')
+    return iface[netifaces.AF_INET][0]['addr']
 

@@ -1,6 +1,6 @@
-FROM python:3.4-slim
+FROM python:3.4-onbuild
 
 VOLUME /mnt/cv
 WORKDIR /mnt/cv/wlskout
-RUN pip install --no-cache-dir -r requirements.txt
+EXPOSE 2666
 
