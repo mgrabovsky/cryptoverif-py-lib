@@ -142,13 +142,13 @@ implementation
     const tag5 = "b'tag5'";
     fun honest = "" [inverse = ""];
     fun kgen = "";
-    fun enc = "crypto.sym_enc";
-    fun dec = "crypto.sym_dec";
-    fun mkgen = "";
+    fun enc = "crypto.sym_encrypt";
+    fun dec = "crypto.sym_decrypt";
     fun mac = "crypto.hmac_sha1_hash";
+    fun check = "crypto.hmac_sha1_verify";
+    fun mkgen = "";
     fun concat1 = "base.concat" [inverse = "base.decompose"];
-    fun injbot = "" [inverse = "base.injbot_inv"];
-    fun check = "crypto.hmac_sha1_verify".
+    fun injbot = "" [inverse = "base.injbot_inv"].
                
 let processInit =
     WLSK_Init {

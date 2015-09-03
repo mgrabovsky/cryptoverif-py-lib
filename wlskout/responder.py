@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import base, WLSK_Resp
-from common import INITIATOR, RESPONDER, SERVER, PORT, get_local_address
-import socket
+from common import *
+import random, socket
 
 BUFFER_SIZE = 1024
 
@@ -10,10 +10,10 @@ if __name__ == '__main__':
     isock = socket.socket()
 
     responder = WLSK_Resp.init()
-    isock.bind((my_addr, PORT))
+    isock.bind((my_addr, RESP_PORT))
     isock.listen(1)
 
-    print('Listening on \x1b[1m{}\x1b[0m:{} as a {}'.format(my_addr, PORT, RESPONDER))
+    print('Listening on \x1b[1m{}\x1b[0m:{} as a {}'.format(my_addr, RESP_PORT, RESPONDER))
     server_addr = input('Enter {} address: '.format(SERVER))
 
     print('\nAwaiting connections...')
@@ -24,28 +24,31 @@ if __name__ == '__main__':
     print("{}'s identity is {}".format(INITIATOR, idA))
 
     (b4, n) = responder(idA)
-    print('Generating nonce...\n  n = {}'.format(n))
+    print('Generating nonce...')
+    debug('n = {}'.format(n))
     conn.send(n)
 
     data = conn.recv(BUFFER_SIZE)
     conn.close()
     isock.close()
     (iv1, e, m) = base.decompose(data)
-    print('Received secrets\n  e = {}\n  m = {}'.format(e, m))
+    print('Received secrets')
+    debug('e = {}\nm = {}'.format(e, m))
 
     (b6, idA_, idB_, iv2, e_, m_) = b4(iv1, e, m)
 
     print('Connecting to the {}...'.format(SERVER))
-    ssock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ssock.connect((server_addr, PORT))
+    ssock = socket.create_connection((server_addr, SERVER_PORT))
 
-    print("Sending encrypted data...\n  idA' = {}\n  idB' = {}\n  e'   = {}\n  m'   = {}".format(idA_, idB_, iv2, e_, m_))
+    print('Sending encrypted data...')
+    debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
     ssock.send(base.compose([idA_, idB_, iv2, e_, m_]))
 
     data = ssock.recv(BUFFER_SIZE)
     ssock.close()
     (iv3, e__, m__) = base.decompose(data)
-    print("Received secrets\n  e'' = {}\n  m'' = {}".format(e__, m__))
+    print('Received secrets')
+    debug("e'' = {}\nm'' = {}".format(e__, m__))
 
     b6(iv3, e__, m__)
 
