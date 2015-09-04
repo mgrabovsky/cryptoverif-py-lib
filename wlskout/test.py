@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
-# ...
+import base
+import WLSK_Keygen, WLSK_Init, WLSK_Resp, WLSK_S
 
 if __name__ == '__main__':
-    # ...
+    print('Generating keys')
+    WLSK_Keygen.init()(base.get_hostname())
+    print('  enc_key = {}\n  mac_key = {}\b  table   = {}'.format(base.read_file('wlsk_enc_key'),
+        base.read_file('wlsk_mac_key'), base.read_file('keytbl')))
+
+    print('\x1b[31mA1\x1b[0m')
+    (a3, idA) = WLSK_Init.init()(base.get_hostname())
+    print('  idA = {}'.format(idA))
 
     print('\x1b[34mB2\x1b[0m')
     (b4, n) = WLSK_Resp.init()(idA)
