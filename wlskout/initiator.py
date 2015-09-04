@@ -26,3 +26,5 @@ if __name__ == '__main__':
         debug('e = {}\nm = {}'.format(e, m))
         rsock.send(base.compose([iv1, e, m]))
 
+    print('\x1b[32mSession finished\x1b[0m')
+

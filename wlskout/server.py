@@ -14,7 +14,9 @@ if __name__ == '__main__':
         sock.bind((my_addr, SERVER_PORT))
         sock.listen(1)
 
-        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}\n\nAwaiting connections...'.format(my_addr, SERVER_PORT, SERVER))
+        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}\n\n'
+            'Awaiting connections...'.format(my_addr, SERVER_PORT, SERVER))
+        print()
         conn, addr = sock.accept()
         print('Received connection from {0[0]}:{0[1]}'.format(addr))
 
@@ -28,4 +30,6 @@ if __name__ == '__main__':
         debug("e'' = {}\nm'' = {}".format(e__, m__))
         conn.send(base.compose([iv3, e__, m__]))
         conn.close()
+
+        print('\x1b[32mSession finished\x1b[0m')
 
