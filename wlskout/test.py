@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# ...
+
+if __name__ == '__main__':
+    # ...
+
     print('\x1b[34mB2\x1b[0m')
     (b4, n) = WLSK_Resp.init()(idA)
     print('  n = {}'.format(n))

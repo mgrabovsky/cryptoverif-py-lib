@@ -128,8 +128,8 @@ query x:host, y:host, z:nonce;
 
 implementation
     table keytbl = "keytbl";
-    type keyseed = 128;
-    type key = 128;
+    type keyseed = 256;
+    type key = 256;
     type mkeyseed = 160;
     type seed = 128;
     type nonce = 64;
@@ -144,8 +144,8 @@ implementation
     fun kgen = "";
     fun enc = "crypto.sym_encrypt";
     fun dec = "crypto.sym_decrypt";
-    fun mac = "crypto.hmac_sha1_hash";
-    fun check = "crypto.hmac_sha1_verify";
+    fun mac = "crypto.hmac_sha256_hash";
+    fun check = "crypto.hmac_sha256_verify";
     fun mkgen = "";
     fun concat1 = "base.concat" [inverse = "base.decompose"];
     fun injbot = "" [inverse = "base.injbot_inv"].

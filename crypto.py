@@ -133,7 +133,8 @@ def pk_sign(message: bytes, private_key: rsa.RSAPrivateKey) -> bytes:
     signer.update(message)
     return signer.finalize()
 
-def pk_verify(message: bytes, public_key: rsa.RSAPublicKey, signature: bytes) -> bool:
+def pk_verify(message: bytes, public_key: rsa.RSAPublicKey,
+        signature: bytes) -> bool:
     """
     Verify a message signature created with RSASSA-PSS.
     """
@@ -143,10 +144,10 @@ def pk_verify(message: bytes, public_key: rsa.RSAPublicKey, signature: bytes) ->
     verifier.update(message)
 
     try:
-        verifier.verify()
+        verifier.verify(signature)
+        return True
     except exceptions.InvalidSignature:
         return False
-    return True
 
 # -----------------------------------------------------------------------------------
 # Hash-based message authentication codes
