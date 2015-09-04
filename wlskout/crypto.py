@@ -144,7 +144,7 @@ def pk_verify(message: bytes, public_key: rsa.RSAPublicKey,
     verifier.update(message)
 
     try:
-        verifier.verify(signature)
+        verifier.verify()
         return True
     except exceptions.InvalidSignature:
         return False

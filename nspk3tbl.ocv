@@ -91,11 +91,11 @@ implementation
     type seed = 64;
     type nonce = 64;
     type host = "string" [serial = "", ""];
-    type pkey = "pkey" [serial = "crypto.serialize_pkey", "crypto.load_pkey"];
-    type skey = "skey" [serial = "crypto.serialize_skey", "crypto.load_skey"];
+    type pkey = "pkey" [serial = "crypto.serialize_pubkey", "crypto.load_pubkey"];
+    type skey = "skey" [serial = "crypto.serialize_privkey", "crypto.load_privkey"];
     type signature = "string";
-    type spkey = "pkey" [serial = "crypto.serialize_pkey", "crypto.load_pkey"];
-    type sskey = "skey" [serial = "crypto.serialize_skey", "crypto.load_skey"].
+    type spkey = "pkey" [serial = "crypto.serialize_pubkey", "crypto.load_pubkey"];
+    type sskey = "skey" [serial = "crypto.serialize_privkey", "crypto.load_privkey"].
 
 table keytbl(host, pkey).
 implementation table keytbl = "keytbl".
@@ -167,7 +167,7 @@ letfun sign(msg: sblocksize, k: sskey) = r <-R sseed; sign_r(msg, k, r).
 implementation
     fun concat1 = "base.concat" [inverse = "base.decompose"];
     fun concat2 = "base.concat" [inverse = "base.decompose"];
-    fun concat3 = "base.concat_pk_str" [inverse = "base.unconcat_pk_str"];
+    fun concat3 = "base.concat_pubkey_str" [inverse = "base.unconcat_pubkey_str"];
     fun concat4 = "base.concat" [inverse = "base.decompose"];
     const hostnameA = "base.get_hostname()";
     const hostnameB = "base.get_hostname()";
@@ -175,8 +175,8 @@ implementation
     const kgen_s = "crypto.pk_keygen(4096)";
     fun sign = "crypto.pk_sign";
     fun check = "crypto.pk_verify";
-    fun enc = "crypto.pk_enc";
-    fun dec = "crypto.pk_dec";
+    fun enc = "crypto.pk_encrypt";
+    fun dec = "crypto.pk_decrypt";
     fun injbot = "" [inverse = "base.injbot_inv"];
     fun pad = "" [inverse = ""];
     fun kp = "" [inverse = ""];

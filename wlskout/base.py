@@ -144,13 +144,13 @@ def concat(*xs: bytes) -> bytes:
     return compose(xs)
 
 def concat_pubkey_str(pk: rsa.RSAPublicKey, bs: bytes) -> bytes:
-    return compose([crypto.serialize_pkey(pk), bs])
+    return compose([crypto.serialize_pubkey(pk), bs])
 
 def unconcat_pubkey_str(bs: bytes):
     xs = decompose(bs)
     if len(xs) != 2:
         raise Exception('Invalid string')
-    return [load_pkey(xs[0]), xs[1]]
+    return [load_pubkey(xs[0]), xs[1]]
 
 # -----------------------------------------------------------------------------------
 # Encoding tables
