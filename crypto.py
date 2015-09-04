@@ -47,7 +47,7 @@ def sym_decrypt(ciphertext: bytes, key: bytes, iv: bytes) -> bytes:
     Returns the message as a byte string.
     """
     try:
-        decryptor = Cipher(algorithms.AES(key), modes.CFB(iv),
+        decryptor = Cipher(algorithms.AES(key), modes.CTR(iv),
                 backend=default_backend()).decryptor()
 
         message = decryptor.update(ciphertext) + decryptor.finalize()
