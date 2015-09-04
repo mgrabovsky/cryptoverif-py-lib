@@ -14,22 +14,23 @@ if __name__ == '__main__':
         sock.bind((my_addr, SERVER_PORT))
         sock.listen(1)
 
-        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}\n\n'
-            'Awaiting connections...'.format(my_addr, SERVER_PORT, SERVER))
-        print()
-        conn, addr = sock.accept()
-        print('Received connection from {0[0]}:{0[1]}'.format(addr))
+        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}\n'.format(my_addr, SERVER_PORT, SERVER))
 
-        data = conn.recv(BUFFER_SIZE)
-        (idA_, idB_, iv2, e_, m_) = base.decompose(data)
-        print('Received secrets from {}'.format(RESPONDER))
-        debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
+        while True:
+            print('Awaiting connection...')
+            conn, addr = sock.accept()
+            print('Received connection from {0[0]}:{0[1]}'.format(addr))
 
-        (_, iv3, e__, m__) = server(idA_, idB_, iv2, e_, m_)
-        print('Sending secrets...')
-        debug("e'' = {}\nm'' = {}".format(e__, m__))
-        conn.send(base.compose([iv3, e__, m__]))
-        conn.close()
+            data = conn.recv(BUFFER_SIZE)
+            (idA_, idB_, iv2, e_, m_) = base.decompose(data)
+            print('Received secrets from {}'.format(RESPONDER))
+            debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
 
-        print('\x1b[32mSession finished\x1b[0m')
+            (_, iv3, e__, m__) = server(idA_, idB_, iv2, e_, m_)
+            print('Sending secrets...')
+            debug("e'' = {}\nm'' = {}".format(e__, m__))
+            conn.send(base.compose([iv3, e__, m__]))
+            conn.close()
+
+            print('\x1b[32mSession finished\x1b[0m')
 

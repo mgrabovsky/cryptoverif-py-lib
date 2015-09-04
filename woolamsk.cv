@@ -200,7 +200,7 @@ let processK =
 
 let processS =
     WLSK_S {
-        in(c11, (hostA1:host, hostB0:host, iv:seed, m:maxmac, macm:macs));
+        !N in(c11, (hostA1:host, hostB0:host, iv:seed, m:maxmac, macm:macs));
         get keytbl (kbs, mkbs, =hostB0) in
         get keytbl (kas, mkas, =hostA1) in
         if check(m, mkas, macm) then
@@ -211,6 +211,6 @@ let processS =
 
 process 
         ((! Nh processH) |
-         (! N processS) |
+         processS |
          (! N2 processK))
 
