@@ -91,10 +91,6 @@ def write_file(fname, data: bytes) -> None:
 def prefix_size(data: bytes, size: int) -> bytes:
     """
     Prefix a byte string with 4-byte size field.
-
-    @type data: bytes
-    @type size: int
-    @rtype: bytes
     """
     prefix = struct.pack('!L', size)
     return prefix + data
@@ -102,9 +98,6 @@ def prefix_size(data: bytes, size: int) -> bytes:
 def extract_size(data: bytes):
     """
     Extract the size field from given byte string.
-
-    @type data: bytes
-    @rtype: (int, bytes)
     """
     if len(data) < 4:
         raise BadCall()

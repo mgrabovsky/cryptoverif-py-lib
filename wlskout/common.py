@@ -10,11 +10,13 @@ DEBUG = bool(os.environ.get('WLSK_DEBUG', False))
 
 def get_local_address():
     ifaces = netifaces.interfaces()
-    if 'enp0s25' in ifaces:
-        iface = netifaces.ifaddresses('enp0s25')
+    if 'docker0' in ifaces:
+        iface = 'docker0'
+    elif 'enp0s25' in ifaces:
+        iface = 'enp0s25'
     else:
-        iface = netifaces.ifaddresses('eth0')
-    return iface[netifaces.AF_INET][0]['addr']
+        iface = 'eth0'
+    return netifaces.ifaddresses(iface)[netifaces.AF_INET][0]['addr']
 
 if DEBUG:
     def debug(message):
