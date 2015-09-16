@@ -2,6 +2,7 @@ import crypto
 import io, math, os, random, struct, sys
 import functools
 import socket
+from cryptography import utils
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 class BadCall(Exception):
@@ -48,7 +49,7 @@ def random_nat(n: int) -> int:
     """
     Generate a random natural number L{n} bytes long.
     """
-    return int.from_bytes(random_bytes(n), 'big', signed=False)
+    return utils.int_from_bytes(random_bytes(n), 'big', signed=False)
 
 def random_bool() -> bool:
     """
