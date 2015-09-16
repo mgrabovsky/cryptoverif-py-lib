@@ -195,7 +195,7 @@ def insert_into_table(fname, data: bytes) -> None:
 # Auxiliary functions
 # -----------------------------------------------------------------------------------
 
-def load_bool(bs: bytes) -> bool:
+def bool_from_bytes(bs: bytes) -> bool:
     if bs == b'\x01':
         True
     elif bs == b'\x00':
@@ -203,7 +203,7 @@ def load_bool(bs: bytes) -> bool:
     else:
         raise BadCall()
 
-def serialize_bool(b: bool) -> bytes:
+def bool_to_bytes(b: bool) -> bytes:
     if b:
         return b'\x01'
     else:
@@ -217,17 +217,17 @@ def size_from(n: int):
         return s
     return inner
 
-def load_stringbot(bs: bytes) -> bytes:
+def stringbot_from_bytes(bs: bytes) -> bytes:
     if bs == b'':
         raise BadCall()
     elif bs[0] == b'N':
         return None
-    elif bs[1] == b'S':
+    elif bs[0] == b'S':
         return bs[1:]
     else:
         raise BadCall()
 
-def serialize_stringbot(bs: bytes) -> bytes:
+def stringbot_to_bytes(bs: bytes) -> bytes:
     if bs is None:
         return b'N'
     else:
