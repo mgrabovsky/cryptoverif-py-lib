@@ -1,5 +1,5 @@
 import crypto
-import io, os, random, struct, sys
+import io, math, os, random, struct, sys
 import functools
 import socket
 from cryptography.hazmat.primitives.asymmetric import rsa
