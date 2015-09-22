@@ -1,11 +1,33 @@
+CV := ~/builds/cryptoverif1.19/cryptoverif -lib ~/builds/cryptoverif1.19/default
+DOCKER := /usr/bin/docker
+PY := /usr/bin/python3
+
 default:
-	@echo 'No default target set.'
-	@echo
 	@echo 'Available targets:'
-	@echo '    clean -- remove WLSK temporary files'
+	@echo '    impl -- exports the Python implementation'
+	@echo '    docker -- create Docker image and containers for testing'
+	@echo '    clean -- remove temporary and intermediate files'
+	@echo '    clean-all -- clean + remove Docker image and containers'
+
+impl: ../woolamsk.cv
+	cd .. ; $(CV) -impl -o wlskout woolamsk.cv
+
+docker:
+	$(DOCKER) build -q -t cv_wlsk .
+	$(eval PARENT = $(shell realpath ..))
+	$(DOCKER) create -it -v "$(PARENT)":/mnt/cv -w /mnt/cv/wlskout --expose=2666 -P \
+		--name=wlsk_server cv_wlsk python server.py
+	$(DOCKER) create -it -v "$(PARENT)":/mnt/cv -w /mnt/cv/wlskout --expose=2666 -P \
+		--name=wlsk_responder --link=wlsk_server cv_wlsk python responder.py
 
 clean:
-	-$(RM) keytbl wlsk_{id,{enc,mac}_key}
+	-$(RM) keytbl wlsk_{id,{enc,mac}_key} WLSK_*.py
+
+clean-all:
+	$(DOCKER) rm wlsk_{responder,server}
+	$(DOCKER) rmi cv_wlsk
+	-$(RM) build.log
+	$(MAKE) $(MAKEFLAGS) clean
 
 .PHONY: default clean
 

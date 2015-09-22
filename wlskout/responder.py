@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
         print('Listening on \x1b[1m{}\x1b[0m:{} as a {}'.format(my_addr, RESP_PORT, RESPONDER))
         #server_addr = input('Enter {} address: '.format(SERVER))
-        server_addr = 'server'
+        server_addr = 'wlsk_server'
 
         print('\nAwaiting connections...')
         conn, addr = isock.accept()
