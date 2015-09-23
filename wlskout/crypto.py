@@ -228,7 +228,7 @@ dh_group18 = DHGroup(dh.DHParameterNumbers(
 """
 Example of DH usage (from the point of view of one party):
 
-    >>> my_secret = dh_private_secret(dh_group14)
+    >>> my_secret = dh_rand(dh_group14)
     >>> msg = dh_message(my_secret)
     >>> send(msg)
     >>> other_msg = recv()
@@ -236,7 +236,7 @@ Example of DH usage (from the point of view of one party):
     >>> hex(secret.x)[:9]
 """
 
-def dh_private_secret(params: DHGroup) -> dh.DHPublicNumbers:
+def dh_rand(params: DHGroup) -> dh.DHPublicNumbers:
     """
     Generate a random private secret for the key exchange.
     """
