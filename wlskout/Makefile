@@ -4,7 +4,7 @@ PY := /usr/bin/python3
 
 default:
 	@echo 'Available targets:'
-	@echo '    impl -- exports the Python implementation'
+	@echo '    impl -- export the Python implementation'
 	@echo '    docker -- create Docker image and containers for testing'
 	@echo '    clean -- remove temporary and intermediate files'
 	@echo '    clean-all -- clean + remove Docker image and containers'
@@ -29,5 +29,5 @@ clean-all:
 	-$(RM) build.log
 	$(MAKE) $(MAKEFLAGS) clean
 
-.PHONY: default clean
+.PHONY: default impl docker clean clean-all
 

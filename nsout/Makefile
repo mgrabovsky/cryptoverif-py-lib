@@ -1,11 +1,19 @@
+CV := ~/builds/cryptoverif1.19/cryptoverif -lib ~/builds/cryptoverif1.19/default
+
 default:
-	@echo 'No default target set.'
-	@echo
 	@echo 'Available targets:'
-	@echo '    clean -- remove WLSK temporary files'
+	@echo '    impl -- export the Python implementation'
+	@echo '    test -- run the test script'
+	@echo '    clean -- remove temporary and intermediate files'
+
+impl: ../nspk3tbl.ocv
+	cd .. ; $(CV) -impl -o nsout nspk3tbl.ocv
+
+test:
+	./test.py
 
 clean:
-	-$(RM) id{A,B} {sk,pk}{A,B,S} keytbl
+	-$(RM) id{A,B} {sk,pk}{A,B,S} keytbl ONS_*.py
 
-.PHONY: default clean
+.PHONY: default impl test clean
 
