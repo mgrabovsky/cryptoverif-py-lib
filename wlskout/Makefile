@@ -26,7 +26,6 @@ clean:
 clean-all:
 	$(DOCKER) rm wlsk_{responder,server}
 	$(DOCKER) rmi cv_wlsk
-	-$(RM) build.log
 	$(MAKE) $(MAKEFLAGS) clean
 
 .PHONY: default impl docker clean clean-all
