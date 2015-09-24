@@ -1,2 +1,2 @@
-cryptography
+cryptography ~= 1.0
 netifaces
