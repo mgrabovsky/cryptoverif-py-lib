@@ -7,7 +7,7 @@ default:
 	@echo '    clean -- remove temporary and intermediate files'
 
 impl: ../nspk3tbl.ocv
-	cd .. ; $(CV) -impl -o nsout nspk3tbl.ocv
+	cd .. ; $(CV) -impl python -o nsout nspk3tbl.ocv
 
 test:
 	./test.py

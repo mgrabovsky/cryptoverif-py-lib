@@ -10,7 +10,7 @@ default:
 	@echo '    clean-all -- clean + remove Docker image and containers'
 
 impl: ../woolamsk.cv
-	cd .. ; $(CV) -impl -o wlskout woolamsk.cv
+	cd .. ; $(CV) -impl python -o wlskout woolamsk.cv
 
 docker:
 	$(DOCKER) build -q -t cv_wlsk .
