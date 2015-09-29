@@ -23,9 +23,11 @@ if __name__ == '__main__':
 
         idA = conn.recv(BUFFER_SIZE)
         print("{}'s identity is {}".format(INITIATOR, idA))
+        delay()
 
-        (b4, n) = responder(idA)
         print('Generating nonce...')
+        delay()
+        (b4, n) = responder(idA)
         debug('n = {}'.format(n))
         conn.send(n)
 
@@ -33,20 +35,24 @@ if __name__ == '__main__':
         conn.close()
 
     (iv1, e, m) = base.decompose(data)
+    delay()
     print('Received secrets from {}'.format(INITIATOR))
     debug('e = {}\nm = {}'.format(e, m))
 
     (b6, idA_, idB_, iv2, e_, m_) = b4(iv1, e, m)
 
     print('Connecting to the {}...'.format(SERVER))
+    delay()
     with socket.create_connection((server_addr, SERVER_PORT)) as ssock:
         print('Sending encrypted data...')
         debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
+        delay()
         ssock.send(base.compose([idA_, idB_, iv2, e_, m_]))
 
         data = ssock.recv(BUFFER_SIZE)
 
     (iv3, e__, m__) = base.decompose(data)
+    delay()
     print('Received secrets from {}'.format(SERVER))
     debug("e'' = {}\nm'' = {}".format(e__, m__))
 

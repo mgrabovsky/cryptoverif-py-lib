@@ -23,14 +23,17 @@ if __name__ == '__main__':
 
             data = conn.recv(BUFFER_SIZE)
             (idA_, idB_, iv2, e_, m_) = base.decompose(data)
+            delay()
             print('Received secrets from {}'.format(RESPONDER))
             debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
 
             (_, iv3, e__, m__) = server(idA_, idB_, iv2, e_, m_)
+            delay()
             print('Sending secrets...')
             debug("e'' = {}\nm'' = {}".format(e__, m__))
             conn.send(base.compose([iv3, e__, m__]))
             conn.close()
 
+            delay()
             print('\x1b[32mSession finished\x1b[0m')
 

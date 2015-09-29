@@ -1,5 +1,6 @@
 import os, textwrap
 import netifaces
+from time import sleep
 
 RESP_PORT = 2666
 SERVER_PORT = 2666
@@ -24,4 +25,7 @@ if DEBUG:
 else:
     def debug(message):
         pass
+
+def delay():
+    sleep(1)
 
