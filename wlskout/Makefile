@@ -6,6 +6,7 @@ default:
 	@echo 'Available targets:'
 	@echo '    impl -- export the Python implementation'
 	@echo '    docker -- create Docker image and containers for testing'
+	@echo '    keys -- generate keys for testing'
 	@echo '    clean -- remove temporary and intermediate files'
 	@echo '    clean-all -- clean + remove Docker image and containers'
 
@@ -19,6 +20,9 @@ docker:
 		--name=wlsk_server cv_wlsk python server.py
 	$(DOCKER) create -it -v "$(PARENT)":/mnt/cv -w /mnt/cv/wlskout --expose=2666 -P \
 		--name=wlsk_responder --link=wlsk_server cv_wlsk python responder.py
+
+keys:
+	$(PY) keygen.py
 
 clean:
 	-$(RM) keytbl wlsk_{id,{enc,mac}_key} WLSK_*.py
