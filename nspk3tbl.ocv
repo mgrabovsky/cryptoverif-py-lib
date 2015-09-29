@@ -186,7 +186,7 @@ implementation
 
 let processA =
 (* Key generation for A *)
-ONS_AGenKey [ pkA > pkA, skA > skA, A > idA ] 
+ONS_AGenKey [pkA > "pkA", skA > "skA", A > "idA"] 
 {
     OAGK () :=
         A: host <- concat4(hostnameA, roleA);
@@ -216,7 +216,7 @@ ONS_A {
 
 let processB =
 (* Key generation for B *)
-ONS_BGenKey [ pkB > pkB, skB > skB, B > idB] 
+ONS_BGenKey [pkB > "pkB", skB > "skB", B > "idB"] 
 {
     OBGK () :=
         B:host <- concat4 (hostnameB,roleB);
@@ -261,7 +261,7 @@ ONS_S {
 
 process 
 (* This module generates keys for the certificate server *)
-ONS_Keygen [pkS > pkS, skS > skS ] {
+ONS_Keygen [pkS > "pkS", skS > "skS"] {
     OStart() :=
         let skp (pkS: spkey, skS: sskey) = kgen_s () in
         return (pkS)};
