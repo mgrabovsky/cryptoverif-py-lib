@@ -14,10 +14,10 @@ if __name__ == '__main__':
         sock.bind((my_addr, SERVER_PORT))
         sock.listen(1)
 
-        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}\n'.format(my_addr, SERVER_PORT, SERVER))
+        print('Listening on \x1b[1m{}\x1b[0m:{} as a {}'.format(my_addr, SERVER_PORT, SERVER))
 
         while True:
-            print('Awaiting connection...')
+            print('\nAwaiting connection...')
             conn, addr = sock.accept()
             print('Received connection from {0[0]}:{0[1]}'.format(addr))
 

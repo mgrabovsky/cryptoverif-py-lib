@@ -22,8 +22,8 @@ if __name__ == '__main__':
     (oa3, hA, hB) = ONS_A.init()(b)
     print('    hA: {}\n    hB: {}'.format(hA, hB))
 
-    print('\x1b[33mS:\x1b[0m Message 2')
     delay()
+    print('\x1b[33mS:\x1b[0m Message 2')
     (_, rk, h2, s) = ONS_S.init()(hA, hB)
 
     delay()

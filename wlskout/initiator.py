@@ -16,7 +16,6 @@ if __name__ == '__main__':
     delay()
     with socket.create_connection((resp_addr, RESP_PORT)) as rsock:
         print('Sending my identity to the {}...'.format(RESPONDER))
-        delay()
         rsock.send(idA)
 
         n = rsock.recv(BUFFER_SIZE)

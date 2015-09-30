@@ -21,7 +21,7 @@ def get_local_address():
 
 if DEBUG:
     def debug(message):
-        print('\x1b[37m{}\x1b[0m'.format(textwrap.indent(message, '  ')))
+        print('\x1b[33m{}\x1b[0m'.format(textwrap.indent(message, '  ')))
 else:
     def debug(message):
         pass
