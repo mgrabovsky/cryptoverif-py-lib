@@ -17,45 +17,45 @@ if __name__ == '__main__':
         #server_addr = input('Enter {} address: '.format(SERVER))
         server_addr = 'wlsk_server'
 
-        print('\nAwaiting connections...')
-        conn, addr = isock.accept()
-        print('Received connection from {0[0]}:{0[1]}'.format(addr))
+        while True:
+            print('\nAwaiting connection...')
+            conn, addr = isock.accept()
+            print('Received connection from {0[0]}:{0[1]}'.format(addr))
 
-        idA = conn.recv(BUFFER_SIZE)
-        print("{}'s identity is {}".format(INITIATOR, idA))
-        delay()
+            idA = conn.recv(BUFFER_SIZE)
+            print("{}'s identity is {}".format(INITIATOR, idA))
+            delay()
 
-        print('Generating nonce...')
-        delay()
-        (b4, n) = responder(idA)
-        debug('n = {}'.format(n))
-        conn.send(n)
+            print('Generating nonce...')
+            delay()
+            (b4, n) = responder(idA)
+            debug('n = {}'.format(n))
+            conn.send(n)
 
-        data = conn.recv(BUFFER_SIZE)
-        conn.close()
+            data = conn.recv(BUFFER_SIZE)
+            conn.close()
 
-    (iv1, e, m) = base.decompose(data)
-    delay()
-    print('Received secrets from {}'.format(INITIATOR))
-    debug('e = {}\nm = {}'.format(e, m))
+            (iv1, e, m) = base.decompose(data)
+            print('Received secrets from {}'.format(INITIATOR))
+            debug('e = {}\nm = {}'.format(e, m))
 
-    (b6, idA_, idB_, iv2, e_, m_) = b4(iv1, e, m)
+            (b6, idA_, idB_, iv2, e_, m_) = b4(iv1, e, m)
 
-    print('Connecting to the {}...'.format(SERVER))
-    delay()
-    with socket.create_connection((server_addr, SERVER_PORT)) as ssock:
-        print('Sending encrypted data...')
-        debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
-        delay()
-        ssock.send(base.compose([idA_, idB_, iv2, e_, m_]))
+            print('Connecting to the {}...'.format(SERVER))
+            delay()
+            with socket.create_connection((server_addr, SERVER_PORT)) as ssock:
+                print('Sending encrypted data...')
+                debug("idA' = {}\nidB' = {}\ne'   = {}\nm'   = {}".format(idA_, idB_, iv2, e_, m_))
+                delay()
+                ssock.send(base.compose([idA_, idB_, iv2, e_, m_]))
 
-        data = ssock.recv(BUFFER_SIZE)
+                data = ssock.recv(BUFFER_SIZE)
 
-    (iv3, e__, m__) = base.decompose(data)
-    delay()
-    print('Received secrets from {}'.format(SERVER))
-    debug("e'' = {}\nm'' = {}".format(e__, m__))
+            (iv3, e__, m__) = base.decompose(data)
+            delay()
+            print('Received secrets from {}'.format(SERVER))
+            debug("e'' = {}\nm'' = {}".format(e__, m__))
 
-    b6(iv3, e__, m__)
-    print('\x1b[32mSession finished\x1b[0m')
+            b6(iv3, e__, m__)
+            print('\x1b[32mSession finished\x1b[0m')
 
