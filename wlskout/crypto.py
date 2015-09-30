@@ -1,3 +1,4 @@
+import collections
 import base
 from cryptography import exceptions, utils
 from cryptography.hazmat.backends import default_backend
@@ -184,10 +185,7 @@ def hmac_sha256_verify(message: bytes, key: bytes, signature: bytes) -> bool:
 # Diffie-Hellman-Merkle key exchange
 # -----------------------------------------------------------------------------------
 
-class DHGroup:
-	def __init__(self, params: dh.DHParameterNumbers, priv_size: int):
-		self.params = params
-		self.priv_size = priv_size
+DHGroup = collections.namedtuple('DHGroup', ['params', 'priv_size'])
 
 # 1536-bit group
 # Source: https://tools.ietf.org/html/rfc3526#section-2
