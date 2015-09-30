@@ -1,7 +1,10 @@
 CV := ~/builds/cryptoverif1.19/cryptoverif -lib ~/builds/cryptoverif1.19/default
 
-default:
+default: help
+
+help:
 	@echo 'Available targets:'
+	@echo '    help -- this message'
 	@echo '    impl -- export the Python implementation'
 	@echo '    test -- run the test script'
 	@echo '    clean -- remove temporary and intermediate files'
@@ -15,5 +18,5 @@ test:
 clean:
 	-$(RM) id{A,B} {sk,pk}{A,B,S} keytbl ONS_*.py
 
-.PHONY: default impl test clean
+.PHONY: clean default help impl test
 

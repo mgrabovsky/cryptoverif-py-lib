@@ -2,8 +2,11 @@ CV := ~/builds/cryptoverif1.19/cryptoverif -lib ~/builds/cryptoverif1.19/default
 DOCKER := /usr/bin/docker
 PY := /usr/bin/python3
 
-default:
+default: help
+
+help:
 	@echo 'Available targets:'
+	@echo '    help -- this message'
 	@echo '    impl -- export the Python implementation'
 	@echo '    docker -- create Docker image and containers for testing'
 	@echo '    keys -- generate keys for testing'
@@ -32,5 +35,5 @@ clean-all:
 	$(DOCKER) rmi cv_wlsk
 	$(MAKE) $(MAKEFLAGS) clean
 
-.PHONY: default impl docker clean clean-all
+.PHONY: clean clean-all default docker help impl
 
