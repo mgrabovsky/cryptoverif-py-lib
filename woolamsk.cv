@@ -59,7 +59,7 @@ B: verify { m5, A, N }_kBS = the message from S
 Correct.
 *)
 
-param N, N2, N3, Nh.
+param N, NK, NR, NS, Nh.
 
 type nonce [large,fixed].
 type host [bounded].
@@ -163,7 +163,7 @@ let processInit =
 
 let processResp =
     WLSK_Resp {
-        in(c5, hostA2:host);
+        !NR in(c5, hostA2:host);
         new N:nonce;
         out(c6, N);
         in(c7, (iv:seed, m:maxmac, macm:macs));
@@ -190,7 +190,7 @@ let processH =
         out(c13, ()) };
         (* Each participant can play the roles of the initiator and 
            the responder *)
-           ((! N processInit) | (! N processResp)).
+           ((! N processInit) | processResp).
     
 let processK =
         (* The adversary can register keys for dishonest participants *)
@@ -200,7 +200,7 @@ let processK =
 
 let processS =
     WLSK_S {
-        !N in(c11, (hostA1:host, hostB0:host, iv:seed, m:maxmac, macm:macs));
+        !NS in(c11, (hostA1:host, hostB0:host, iv:seed, m:maxmac, macm:macs));
         get keytbl (kbs, mkbs, =hostB0) in
         get keytbl (kas, mkas, =hostA1) in
         if check(m, mkas, macm) then
@@ -212,5 +212,5 @@ let processS =
 process 
         ((! Nh processH) |
          processS |
-         (! N2 processK))
+         (! NK processK))
 
