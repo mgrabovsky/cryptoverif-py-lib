@@ -1,4 +1,4 @@
-CV := ~/builds/cryptoverif1.19/cryptoverif -lib ~/builds/cryptoverif1.19/default
+CV := ~/builds/cryptoverif/cryptoverif -lib ~/builds/cryptoverif/default
 DOCKER := /usr/bin/docker
 PY := /usr/bin/python3
 
