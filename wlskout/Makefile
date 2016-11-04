@@ -1,6 +1,5 @@
 CV := ~/builds/cryptoverif/cryptoverif -lib ~/builds/cryptoverif/default
 DOCKER := /usr/bin/docker
-PY := /usr/bin/python3
 
 default: help
 
@@ -25,7 +24,7 @@ docker:
 		--name=wlsk_responder --link=wlsk_server cv_wlsk python responder.py
 
 keys:
-	$(PY) keygen.py
+	python keygen.py
 
 clean:
 	-$(RM) keytbl wlsk_{id,{enc,mac}_key} WLSK_*.py
