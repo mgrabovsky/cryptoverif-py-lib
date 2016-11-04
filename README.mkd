@@ -3,7 +3,7 @@ This repository contains the supporting library for my CryptoVerif [Python imple
 
 ## Prerequisites
 
-To build the Python implementation files, you will need the [Python implementations](https://github.com/mgrabovsky/cryptoverif-py-lib) CryptoVerif fork.
+To build the Python implementation files, you will need the [Python implementations](https://github.com/mgrabovsky/cryptoverif-py) CryptoVerif fork.
 
 To run the examples, you will need Python 3.
 
