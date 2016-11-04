@@ -59,7 +59,7 @@ pane3$ python initiator.py
 It will ask you for the responder's address, which should be available in the corresponding container's output. The initiator will connect to the responder once and then quit. The server and responder will accept connections as long as they're running, so you can run the initiator as many times as you desire.
 
 Here's a screen capture of how two consecutive runs of the WLSK example look:
-![Screen capture of Woo-Lam secret key protocol example run](./wlsk.webm)
+![Screen capture of Woo-Lam secret key protocol example run](./wlsk_run.webm)
 
 ## Licence
 
