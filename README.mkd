@@ -1,5 +1,6 @@
 This repository contains the supporting library for my CryptoVerif [Python implementations fork](https://github.com/mgrabovsky/cryptoverif-py) along with two examples of its usage (adapted from the original CryptoVerif code).
 
+⚠ **PLEASE NOTE: This fork is no longer maintained.** ⚠
 
 ## Prerequisites
 
